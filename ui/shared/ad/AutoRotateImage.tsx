@@ -18,7 +18,19 @@ const AutoRotateImage = () => {
     return () => clearInterval(intervalId);
   }, [imageIndex]); // Empty dependency array ensures the effect runs only once on mount
 
-  return <Image src={images[imageIndex]} alt={`Image ${imageIndex + 1}`} />;
+  const openImageLink = () => {
+    const link = "https://presale.edexa.io/"; // Replace with the actual link
+    window.open(link, "_blank", "noopener noreferrer");
+  };
+
+  return (
+    <Image
+      src={images[imageIndex]}
+      alt={`Image ${imageIndex + 1}`}
+      onClick={() => openImageLink()}
+      style={{ cursor: "pointer" }}
+    />
+  );
 };
 
 export default AutoRotateImage;
