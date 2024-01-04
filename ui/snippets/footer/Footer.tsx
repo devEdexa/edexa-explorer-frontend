@@ -7,6 +7,8 @@ import {
   Link,
   VStack,
   Skeleton,
+  useColorModeValue,
+  Image,
 } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
@@ -42,6 +44,11 @@ const Footer = () => {
   // });
   // const apiVersionUrl = getApiVersionUrl(backendVersionData?.backend_version);
   // const issueUrl = useIssueUrl(backendVersionData?.backend_version);
+  const darkModeFilter = { filter: "brightness(0) invert(1)" };
+  const logoStyle = useColorModeValue(
+    {},
+    !config.UI.sidebar.logo.dark ? darkModeFilter : {}
+  );
   const BLOCKSCOUT_LINKS: any = [
     {
       icon: linkedInIcon,
@@ -160,6 +167,13 @@ const Footer = () => {
           {/* <Link fontSize="xs" href="https://www.blockscout.com">
             blockscout.com
           </Link> */}
+          <Image
+            w="14%"
+            h="100%"
+            src="https://edexa-general.s3.ap-south-1.amazonaws.com/logo.svg"
+            style={logoStyle}
+            alt={`${config.chain.name} network logo`}
+          />
           <Text mt={3} fontSize="xs">
             edeXa Business Blockchain, private and public ecosystem built to
             enable scalable and business- oriented dApps for the world.
@@ -196,8 +210,10 @@ const Footer = () => {
   if (config.UI.footer.links) {
     return (
       <Grid {...containerProps}>
-        {renderNetworkInfo()}
-        {renderProjectInfo()}
+        <>
+          {renderNetworkInfo()}
+          {renderProjectInfo()}
+        </>
 
         <Grid
           gap={{
