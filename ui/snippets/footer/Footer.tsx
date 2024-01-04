@@ -168,8 +168,7 @@ const Footer = () => {
             blockscout.com
           </Link> */}
           <Image
-            w="14%"
-            h="100%"
+            w="25%"
             src="https://edexa-general.s3.ap-south-1.amazonaws.com/logo.svg"
             style={logoStyle}
             alt={`${config.chain.name} network logo`}
