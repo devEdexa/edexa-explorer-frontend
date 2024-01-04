@@ -74,7 +74,6 @@ const NetworkLogo = ({ isCollapsed, onClick }: Props) => {
   );
 
   return (
-    // TODO switch to <NextLink href={ href } passHref> when main page for network will be ready
     <Box
       as="a"
       href={route({ pathname: "/" })}

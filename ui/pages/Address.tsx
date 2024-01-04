@@ -1,12 +1,10 @@
-import { Box, Flex, HStack, Icon } from '@chakra-ui/react';
+import { Box, Flex, HStack } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
-import type { TokenType } from 'types/api/token';
 import type { RoutedTab } from 'ui/shared/Tabs/types';
 
 import config from 'configs/app';
-import iconSuccess from 'icons/status/success.svg';
 import useApiQuery from 'lib/api/useApiQuery';
 import { useAppContext } from 'lib/contexts/app';
 import useContractTabs from 'lib/hooks/useContractTabs';
@@ -31,18 +29,13 @@ import TextAd from 'ui/shared/ad/TextAd';
 import AddressAddToWallet from 'ui/shared/address/AddressAddToWallet';
 import AddressEntity from 'ui/shared/entities/address/AddressEntity';
 import EntityTags from 'ui/shared/EntityTags';
+import IconSvg from 'ui/shared/IconSvg';
 import NetworkExplorers from 'ui/shared/NetworkExplorers';
 import PageTitle from 'ui/shared/Page/PageTitle';
 import RoutedTabs from 'ui/shared/Tabs/RoutedTabs';
 import TabsSkeleton from 'ui/shared/Tabs/TabsSkeleton';
 
-export const tokenTabsByType: Record<TokenType, string> = {
-  'ERC-20': 'tokens_erc20',
-  'ERC-721': 'tokens_erc721',
-  'ERC-1155': 'tokens_erc1155',
-} as const;
-
-const TOKEN_TABS = Object.values(tokenTabsByType);
+const TOKEN_TABS = [ 'tokens_erc20', 'tokens_nfts', 'tokens_nfts_collection', 'tokens_nfts_list' ];
 
 const AddressPageContent = () => {
   const router = useRouter();
@@ -134,7 +127,7 @@ const AddressPageContent = () => {
             return (
               <>
                 <span>Contract</span>
-                <Icon as={ iconSuccess } boxSize="14px" color="green.500" ml={ 1 }/>
+                <IconSvg name="status/success" boxSize="14px" color="green.500" ml={ 1 }/>
               </>
             );
           }
@@ -196,7 +189,7 @@ const AddressPageContent = () => {
       <AddressQrCode address={{ hash }} isLoading={ isLoading }/>
       <AccountActionsMenu isLoading={ isLoading }/>
       <HStack ml="auto" gap={ 2 }/>
-      { addressQuery.data?.is_contract && config.UI.views.address.solidityscanEnabled && <SolidityscanReport hash={ hash }/> }
+      { addressQuery.data?.is_contract && addressQuery.data?.is_verified && config.UI.views.address.solidityscanEnabled && <SolidityscanReport hash={ hash }/> }
       <NetworkExplorers type="address" pathParam={ hash }/>
     </Flex>
   );

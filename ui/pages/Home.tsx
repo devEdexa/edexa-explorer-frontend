@@ -23,7 +23,11 @@ const Home = () => {
         minW={{ base: "unset", lg: "900px" }}
         data-label="hero plate"
       >
-        <Flex mb={{ base: 6, lg: 8 }} justifyContent="space-between">
+        <Flex
+          mb={{ base: 6, lg: 8 }}
+          justifyContent="space-between"
+          alignItems="center"
+        >
           <Heading
             as="h1"
             size={{ base: "md", lg: "xl" }}

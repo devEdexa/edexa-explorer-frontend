@@ -1,7 +1,7 @@
-<h1 align="center">Blockscout frontend</h1>
+<h1 align="center">edeXa Explorer frontend</h1>
 
 <p align="center">
-    <span>Frontend application for </span>
+    <span>Forked from open source project</span>
     <a href="https://github.com/blockscout/blockscout/blob/master/README.md">Blockscout</a>
     <span> blockchain explorer</span>
 </p>
@@ -10,7 +10,7 @@
 
 App is distributed as a docker image. Here you can find information about the [package](https://github.com/blockscout/frontend/pkgs/container/frontend) and its recent [releases](https://github.com/blockscout/frontend/releases).
 
-You can configure your app by passing necessary environment variables when stating the container. See full list of ENVs and their description [here](./docs/ENVS.md).
+You can configure your app by passing necessary environment variables when starting the container. See full list of ENVs and their description [here](./docs/ENVS.md).
 
 ```sh
 docker run -p 3000:3000 --env-file <path-to-your-env-file> ghcr.io/blockscout/frontend:latest
@@ -29,6 +29,7 @@ See our [Contribution guide](./docs/CONTRIBUTING.md) for pull request protocol. 
 - [Contribution guide](./docs/CONTRIBUTING.md)
 - [Making a custom build](./docs/CUSTOM_BUILD.md)
 - [Frontend migration guide](https://docs.blockscout.com/for-developers/frontend-migration)
+- [Manual deployment guide with backend and microservices](https://docs.blockscout.com/for-developers/deployment/manual-deployment-guide)
 
 ## License
 
