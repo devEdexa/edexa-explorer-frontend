@@ -39,7 +39,7 @@ const ContractMethodStatic = ({ data }: Props) => {
 
     if (event.target.checked) {
       setValue(BigNumber(initialValue).div(WEI).toFixed());
-      setLabel(config.chain.currency.symbol || 'ETH');
+      setLabel(config.chain.currency.symbol || 'EDX');
     } else {
       setValue(BigNumber(initialValue).toFixed());
       setLabel('WEI');

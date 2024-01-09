@@ -27,14 +27,14 @@ export const STATS_CHARTS_SECTION: StatsChartsSection = {
     {
       id: 'chart_0',
       title: 'Average transaction fee',
-      description: 'The average amount in ETH spent per transaction',
-      units: 'ETH',
+      description: 'The average amount in EDX spent per transaction',
+      units: 'EDX',
     },
     {
       id: 'chart_1',
       title: 'Transactions fees',
       description: 'Amount of tokens paid as fees',
-      units: 'ETH',
+      units: 'EDX',
     },
     {
       id: 'chart_2',
