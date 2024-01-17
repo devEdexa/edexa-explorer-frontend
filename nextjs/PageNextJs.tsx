@@ -27,8 +27,6 @@ const PageNextJs = (props: Props) => {
   return (
     <>
       <Head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>edeXa Business Blockchain</title>
         <meta property="og:title" content="edeXa Business Blockchain" />
         <meta property="og:type" content="website" />
