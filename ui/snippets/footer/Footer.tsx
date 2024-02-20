@@ -90,7 +90,7 @@ const Footer = () => {
       icon: telegramIcon,
       iconSize: "20px",
       text: "Telegram",
-      url: "https://t.me/edeXa",
+      url: "https://t.me/edeXa_official",
     },
     {
       icon: youtubeIcon,
