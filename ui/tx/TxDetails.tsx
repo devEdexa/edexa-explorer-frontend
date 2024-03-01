@@ -133,11 +133,11 @@ const TxDetails = () => {
 
   return (
     <>
-      {/* {config.chain.isTestnet && ( */}
+      {config.chain.isTestnet && (
         <Skeleton mb={6} isLoaded={!isPlaceholderData}>
-          <Alert status="warning">This is a mainnet transaction only</Alert>
+          <Alert status="warning">This is a testnet transaction only</Alert>
         </Skeleton>
-      {/* )} */}
+      )}
       <Grid
         columnGap={8}
         rowGap={{ base: 3, lg: 3 }}
