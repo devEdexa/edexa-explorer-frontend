@@ -47,7 +47,7 @@ const Burger = ({ isMarketplaceAppPage }: Props) => {
         <DrawerOverlay/>
         <DrawerContent maxWidth="260px">
           <DrawerBody p={ 6 } display="flex" flexDirection="column">
-            { config.chain.isTestnet && <IconSvg name="mainnet" h="14px" w="37px" color="red.400" alignSelf="flex-start"/> }
+            <IconSvg name="mainnet" h="14px" w="37px" color="red.400" alignSelf="flex-start"/> 
             <Flex alignItems="center" justifyContent="space-between">
               <NetworkLogo onClick={ handleNetworkLogoClick }/>
               { config.UI.sidebar.featuredNetworks ? (
