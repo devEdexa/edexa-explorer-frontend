@@ -1,22 +1,22 @@
-import type { HTMLChakraProps } from '@chakra-ui/react';
-import { Skeleton, chakra } from '@chakra-ui/react';
-import { type IconName } from 'public/icons/name';
-import React from 'react';
+import type { HTMLChakraProps } from "@chakra-ui/react";
+import { Skeleton, chakra } from "@chakra-ui/react";
+import { type IconName } from "public/icons/name";
+import React from "react";
 
-export const href = '/icons/sprite.svg';
+export const href = "/icons/sprite.svg";
 
 export { IconName };
 
-interface Props extends HTMLChakraProps<'div'> {
+interface Props extends HTMLChakraProps<"div"> {
   name: IconName;
   isLoading?: boolean;
 }
 
-const IconSvg = ({ name, isLoading, ...props }: Props) => {
+const IconSvg = ({ name, isLoading, ...props }: any) => {
   return (
-    <Skeleton isLoaded={ !isLoading } display="inline-block" { ...props }>
+    <Skeleton isLoaded={!isLoading} display="inline-block" {...props}>
       <chakra.svg w="100%" h="100%">
-        <use href={ `${ href }#${ name }` }/>
+        <use href={`${href}#${name}`} />
       </chakra.svg>
     </Skeleton>
   );
