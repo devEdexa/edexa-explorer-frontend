@@ -109,7 +109,7 @@
 	| "status/success"
 	| "status/warning"
 	| "sun"
-	| "testnet"
+	| "mainnet"
 	| "token-placeholder"
 	| "token"
 	| "tokens"
