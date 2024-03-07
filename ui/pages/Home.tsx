@@ -48,12 +48,14 @@ const Home = () => {
       <Stats />
       <ChainIndicators />
 
-      <AdBanner
+      {/* <AdBanner
         mt={{ base: 6, lg: 8 }}
         mx="auto"
         display="flex"
         justifyContent="center"
-      />
+      /> */}
+
+      {/* hiding for presale banner */}
       <Flex
         mt={8}
         direction={{ base: "column", lg: "row" }}
