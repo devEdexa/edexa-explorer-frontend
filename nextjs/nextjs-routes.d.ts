@@ -18,7 +18,9 @@ declare module "nextjs-routes" {
     | DynamicRoute<"/address/[hash]", { "hash": string }>
     | StaticRoute<"/api/csrf">
     | StaticRoute<"/api/healthz">
+    | StaticRoute<"/api/log">
     | StaticRoute<"/api/media-type">
+    | StaticRoute<"/api/metrics">
     | StaticRoute<"/api/proxy">
     | StaticRoute<"/api-docs">
     | DynamicRoute<"/apps/[id]", { "id": string }>
@@ -28,19 +30,21 @@ declare module "nextjs-routes" {
     | StaticRoute<"/auth/unverified-email">
     | DynamicRoute<"/batches/[number]", { "number": string }>
     | StaticRoute<"/batches">
+    | DynamicRoute<"/blobs/[hash]", { "hash": string }>
     | DynamicRoute<"/block/[height_or_hash]", { "height_or_hash": string }>
     | StaticRoute<"/blocks">
     | StaticRoute<"/contract-verification">
     | StaticRoute<"/csv-export">
     | StaticRoute<"/deposits">
+    | StaticRoute<"/gas-tracker">
     | StaticRoute<"/graphiql">
     | StaticRoute<"/">
     | StaticRoute<"/login">
     | DynamicRoute<"/name-domains/[name]", { "name": string }>
     | StaticRoute<"/name-domains">
-    | StaticRoute<"/output-roots">
     | DynamicRoute<"/op/[hash]", { "hash": string }>
     | StaticRoute<"/ops">
+    | StaticRoute<"/output-roots">
     | StaticRoute<"/search-results">
     | StaticRoute<"/stats">
     | DynamicRoute<"/token/[hash]", { "hash": string }>
@@ -49,6 +53,7 @@ declare module "nextjs-routes" {
     | DynamicRoute<"/tx/[hash]", { "hash": string }>
     | StaticRoute<"/txs">
     | DynamicRoute<"/txs/kettle/[hash]", { "hash": string }>
+    | StaticRoute<"/validators">
     | StaticRoute<"/verified-contracts">
     | StaticRoute<"/visualize/sol2uml">
     | StaticRoute<"/withdrawals">;

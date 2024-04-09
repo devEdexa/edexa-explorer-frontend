@@ -1,4 +1,4 @@
-import { Flex, chakra } from '@chakra-ui/react';
+import { chakra } from '@chakra-ui/react';
 import React from 'react';
 
 import type { TokenInfo } from 'types/api/token';
@@ -15,8 +15,31 @@ interface Props {
 const NftTokenTransferSnippet = ({ value, token, tokenId }: Props) => {
   const num = value === '1' ? '' : value;
 
+  const tokenIdContent = (() => {
+    if (tokenId === null) {
+      // ERC-404 may not have an ID
+      if (token.type === 'ERC-404') {
+        return null;
+      }
+      return <chakra.span color="text_secondary"> N/A </chakra.span>;
+    }
+
+    return (
+      <NftEntity
+        hash={ token.address }
+        id={ tokenId }
+        fontWeight={ 600 }
+        iconSize="md"
+        maxW={{ base: '100%', lg: '150px' }}
+        w="auto"
+        flexShrink={ 0 }
+      />
+    );
+
+  })();
+
   return (
-    <Flex alignItems="center" columnGap={ 2 } rowGap={ 2 } flexWrap={{ base: 'wrap', lg: 'nowrap' }}>
+    <>
       { num ? (
         <>
           <chakra.span color="text_secondary">for</chakra.span>
@@ -26,18 +49,7 @@ const NftTokenTransferSnippet = ({ value, token, tokenId }: Props) => {
       ) : (
         <chakra.span color="text_secondary">for token ID</chakra.span>
       ) }
-      { tokenId !== null ? (
-        <NftEntity
-          hash={ token.address }
-          id={ tokenId }
-          fontWeight={ 600 }
-          iconSize="md"
-          maxW={{ base: '100%', lg: '150px' }}
-          w="auto"
-          flexShrink={ 0 }
-        />
-      ) : <chakra.span color="text_secondary"> N/A </chakra.span>
-      }
+      { tokenIdContent }
       <chakra.span color="text_secondary">of</chakra.span>
       <TokenEntity
         token={ token }
@@ -45,7 +57,7 @@ const NftTokenTransferSnippet = ({ value, token, tokenId }: Props) => {
         w="auto"
         flexGrow={ 1 }
       />
-    </Flex>
+    </>
   );
 };
 

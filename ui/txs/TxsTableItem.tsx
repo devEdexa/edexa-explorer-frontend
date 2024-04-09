@@ -21,6 +21,7 @@ import TxFeeStability from 'ui/shared/tx/TxFeeStability';
 import TxWatchListTags from 'ui/shared/tx/TxWatchListTags';
 import TxAdditionalInfo from 'ui/txs/TxAdditionalInfo';
 
+import TxTranslationType from './TxTranslationType';
 import TxType from './TxType';
 
 type Props = {
@@ -55,13 +56,17 @@ const TxsTableItem = ({ tx, showBlockInfo, currentAddress, enableTimeIncrement, 
             fontWeight={ 700 }
             noIcon
             maxW="100%"
+            truncation="constant_long"
           />
           { tx.timestamp && <Skeleton color="text_secondary" fontWeight="400" isLoaded={ !isLoading }><span>{ timeAgo }</span></Skeleton> }
         </VStack>
       </Td>
       <Td>
         <VStack alignItems="start">
-          <TxType types={ tx.tx_types } isLoading={ isLoading }/>
+          { tx.translation ?
+            <TxTranslationType types={ tx.tx_types } isLoading={ isLoading || tx.translation.isLoading } translatationType={ tx.translation.data?.type }/> :
+            <TxType types={ tx.tx_types } isLoading={ isLoading }/>
+          }
           <TxStatus status={ tx.status } errorText={ tx.status === 'error' ? tx.result : undefined } isLoading={ isLoading }/>
           <TxWatchListTags tx={ tx } isLoading={ isLoading }/>
         </VStack>
@@ -94,7 +99,7 @@ const TxsTableItem = ({ tx, showBlockInfo, currentAddress, enableTimeIncrement, 
           current={ currentAddress }
           isLoading={ isLoading }
           mt="2px"
-          mode={{ lg: 'compact', xl: 'long' }}
+          mode="compact"
         />
       </Td>
       { !config.UI.views.tx.hiddenFields?.value && (

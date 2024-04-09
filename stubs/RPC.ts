@@ -53,6 +53,10 @@ export const GET_TRANSACTION_RECEIPT: TransactionReceipt = {
 
 export const GET_TRANSACTION_CONFIRMATIONS = BigInt(420);
 
+export const GET_BALANCE = BigInt(42_000_000_000_000);
+
+export const GET_TRANSACTIONS_COUNT = 42;
+
 export const GET_BLOCK: GetBlockReturnType<Chain, false, 'latest'> = {
   baseFeePerGas: BigInt(11),
   difficulty: BigInt(111),
@@ -80,6 +84,8 @@ export const GET_BLOCK: GetBlockReturnType<Chain, false, 'latest'> = {
   withdrawals: Array(10).fill(WITHDRAWAL),
   withdrawalsRoot: TX_HASH,
   sealFields: [ '0x00' ],
+  blobGasUsed: BigInt(0),
+  excessBlobGas: BigInt(0),
 };
 
 export const GET_BLOCK_WITH_TRANSACTIONS: GetBlockReturnType<Chain, true, 'latest'> = {

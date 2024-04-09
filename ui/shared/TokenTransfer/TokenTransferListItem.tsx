@@ -35,7 +35,7 @@ const TokenTransferListItem = ({
   isLoading,
 }: Props) => {
   const timeAgo = useTimeAgoIncrement(timestamp, enableTimeIncrement);
-  const { usd, valueStr } = 'value' in total ? getCurrencyValue({
+  const { usd, valueStr } = 'value' in total && total.value !== null ? getCurrencyValue({
     value: total.value,
     exchangeRate: token.exchange_rate,
     accuracy: 8,
@@ -67,7 +67,7 @@ const TokenTransferListItem = ({
           <TxEntity
             isLoading={ isLoading }
             hash={ txHash }
-            truncation="constant"
+            truncation="constant_long"
             fontWeight="700"
           />
           { timestamp && (

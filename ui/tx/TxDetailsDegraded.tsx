@@ -7,12 +7,14 @@ import type { Transaction } from 'types/api/transaction';
 
 import { SECOND } from 'lib/consts';
 import dayjs from 'lib/date/dayjs';
+import throwOnResourceLoadError from 'lib/errors/throwOnResourceLoadError';
 import hexToDecimal from 'lib/hexToDecimal';
 import { publicClient } from 'lib/web3/client';
 import { GET_BLOCK, GET_TRANSACTION, GET_TRANSACTION_RECEIPT, GET_TRANSACTION_CONFIRMATIONS } from 'stubs/RPC';
 import { unknownAddress } from 'ui/shared/address/utils';
 import ServiceDegradationWarning from 'ui/shared/alerts/ServiceDegradationWarning';
 import TestnetWarning from 'ui/shared/alerts/TestnetWarning';
+import isCustomAppError from 'ui/shared/AppError/isCustomAppError';
 import DataFetchAlert from 'ui/shared/DataFetchAlert';
 
 import TxInfo from './details/TxInfo';
@@ -37,6 +39,10 @@ const TxDetailsDegraded = ({ hash, txQuery }: Props) => {
   const query = useQuery<RpcResponseType, unknown, Transaction | null>({
     queryKey: [ 'RPC', 'tx', { hash } ],
     queryFn: async() => {
+      if (!publicClient) {
+        throw new Error('No public RPC client');
+      }
+
       const tx = await publicClient.getTransaction({ hash: hash as `0x${ string }` });
 
       if (!tx) {
@@ -77,7 +83,7 @@ const TxDetailsDegraded = ({ hash, txQuery }: Props) => {
         status,
         block: tx.blockNumber ? Number(tx.blockNumber) : null,
         value: tx.value.toString(),
-        gas_price: txReceipt?.effectiveGasPrice.toString() ?? tx.gasPrice?.toString() ?? null,
+        gas_price: gasPrice?.toString() ?? null,
         base_fee_per_gas: block?.baseFeePerGas?.toString() ?? null,
         max_fee_per_gas: tx.maxFeePerGas?.toString() ?? null,
         max_priority_fee_per_gas: tx.maxPriorityFeePerGas?.toString() ?? null,
@@ -137,8 +143,8 @@ const TxDetailsDegraded = ({ hash, txQuery }: Props) => {
   }, [ txQuery.setRefetchOnError ]);
 
   if (!query.data) {
-    if (originalError?.status === 404) {
-      throw Error('Not found', { cause: { status: 404 } as unknown as Error });
+    if (originalError && isCustomAppError(originalError)) {
+      throwOnResourceLoadError({ resource: 'tx', error: originalError, isError: true });
     }
 
     return <DataFetchAlert/>;
