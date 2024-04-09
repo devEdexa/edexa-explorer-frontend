@@ -25,7 +25,12 @@ const DetailsSponsoredItem = ({ isLoading }: Props) => {
     return (
       <GridItem mt={5}>
         {/* hiding for presale banner */}
-        {/* <AdBanner mx="auto" isLoading={ isLoading } display="flex" justifyContent="center"/> */}
+        <AdBanner
+          mx="auto"
+          isLoading={isLoading}
+          display="flex"
+          justifyContent="center"
+        />
       </GridItem>
     );
   }
@@ -37,7 +42,7 @@ const DetailsSponsoredItem = ({ isLoading }: Props) => {
       isLoading={isLoading}
     >
       {/* hiding for presale banner */}
-      {/* <AdBanner isLoading={ isLoading }/> */}
+      <AdBanner isLoading={isLoading} />
     </DetailsInfoItem>
   );
 };
