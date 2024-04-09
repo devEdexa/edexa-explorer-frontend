@@ -8,6 +8,7 @@ const chain = Object.freeze({
   shortName: getEnvValue("NEXT_PUBLIC_NETWORK_SHORT_NAME"),
   currency: {
     name: getEnvValue("NEXT_PUBLIC_NETWORK_CURRENCY_NAME"),
+    weiName: getEnvValue('NEXT_PUBLIC_NETWORK_CURRENCY_WEI_NAME'),
     // symbol: getEnvValue('NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL'),
     // hiding ETH for getting EDX token
     symbol: "EDX",

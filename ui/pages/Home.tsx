@@ -12,6 +12,8 @@ import ProfileMenuDesktop from "ui/snippets/profileMenu/ProfileMenuDesktop";
 import SearchBar from "ui/snippets/searchBar/SearchBar";
 import AdBanner from "ui/shared/ad/AdBanner";
 
+const rollupFeature = config.features.rollup;
+
 const Home = () => {
   return (
     <Box as="main">
@@ -62,7 +64,7 @@ const Home = () => {
         columnGap={12}
         rowGap={8}
       >
-        {config.features.zkEvmRollup.isEnabled ? (
+        {rollupFeature.isEnabled && rollupFeature.type === "zkEvm" ? (
           <LatestZkEvmL2Batches />
         ) : (
           <LatestBlocks />

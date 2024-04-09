@@ -23,7 +23,7 @@ const AdBanner = ({
     useAppContext().cookies
   );
 
-  if (!feature.isEnabled || hasAdblockCookie) {
+  if (!feature.isEnabled || hasAdblockCookie ) {
     return null;
   }
 

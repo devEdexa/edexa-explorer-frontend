@@ -4,6 +4,7 @@ import {
   Image,
   useColorModeValue,
   Skeleton,
+  StyleProps,
 } from "@chakra-ui/react";
 import React from "react";
 
@@ -15,14 +16,17 @@ import iconPlaceholder from "icons/edexaSocial/bigLogo.svg";
 interface Props {
   isCollapsed?: boolean;
   onClick?: (event: React.SyntheticEvent) => void;
+  imageProps?: StyleProps;
 }
 
 const LogoFallback = ({
   isCollapsed,
   isSmall,
+  imageProps,
 }: {
   isCollapsed?: boolean;
   isSmall?: boolean;
+  imageProps?: StyleProps;
 }) => {
   const field = isSmall ? "icon" : "logo";
   const logoColor = useColorModeValue("blue.600", "white");
@@ -45,16 +49,21 @@ const LogoFallback = ({
 
   return (
     <Icon
-      as={isSmall ? "https://edexa-general.s3.ap-south-1.amazonaws.com/XLogo.png" : iconPlaceholder}
+      as={
+        isSmall
+          ? "https://edexa-general.s3.ap-south-1.amazonaws.com/XLogo.png"
+          : iconPlaceholder
+      }
       width="auto"
       height="100%"
       color={logoColor}
       display={display}
+      {...imageProps}
     />
   );
 };
 
-const NetworkLogo = ({ isCollapsed, onClick }: Props) => {
+const NetworkLogo = ({ isCollapsed, onClick, imageProps }: Props) => {
   const logoSrc = useColorModeValue(
     config.UI.sidebar.logo.default,
     config.UI.sidebar.logo.dark || config.UI.sidebar.logo.default
@@ -101,13 +110,16 @@ const NetworkLogo = ({ isCollapsed, onClick }: Props) => {
         // src={ logoSrc }
         src="https://edexa-general.s3.ap-south-1.amazonaws.com/logo.svg"
         alt={`${config.chain.name} network logo`}
-        fallback={<LogoFallback isCollapsed={isCollapsed} />}
+        fallback={
+          <LogoFallback isCollapsed={isCollapsed} imageProps={imageProps} />
+        }
         display={{
           base: "block",
           lg: isCollapsed === false ? "block" : "none",
           xl: isCollapsed ? "none" : "block",
         }}
         style={logoStyle}
+        {...imageProps}
       />
       {/* small logo */}
       {/* Added small  src logo from edexa */}
@@ -118,13 +130,20 @@ const NetworkLogo = ({ isCollapsed, onClick }: Props) => {
 
         src="https://edexa-general.s3.ap-south-1.amazonaws.com/XLogo.png"
         alt={`${config.chain.name} network logo`}
-        fallback={<LogoFallback isCollapsed={isCollapsed} isSmall />}
+        fallback={
+          <LogoFallback
+            isCollapsed={isCollapsed}
+            imageProps={imageProps}
+            isSmall
+          />
+        }
         display={{
           base: "none",
           lg: isCollapsed === false ? "none" : "block",
           xl: isCollapsed ? "block" : "none",
         }}
         style={iconStyle}
+        {...imageProps}
       />
     </Box>
   );

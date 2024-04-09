@@ -8,6 +8,7 @@ import type { NetworkExplorer } from "types/networks";
 
 import * as views from "./ui/views";
 import { getEnvValue, getExternalAssetFilePath, parseEnvJson } from "./utils";
+import { ContractCodeIde } from "types/client/contract";
 
 const hiddenLinks = (() => {
   const parsedValue =
@@ -100,6 +101,10 @@ const UI = Object.freeze({
         getEnvValue("NEXT_PUBLIC_NETWORK_EXPLORERS")
       ) || [],
   },
+  ides: {
+    items: parseEnvJson<Array<ContractCodeIde>>(getEnvValue('NEXT_PUBLIC_CONTRACT_CODE_IDES')) || [],
+  },
+  hasContractAuditReports: getEnvValue('NEXT_PUBLIC_HAS_CONTRACT_AUDIT_REPORTS') === 'true' ? true : false,
 });
 
 export default UI;
