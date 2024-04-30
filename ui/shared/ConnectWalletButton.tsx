@@ -1,4 +1,4 @@
-import { Button, useToast } from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
 import React from "react";
 import config from "configs/app";
 import IconSvg from "ui/shared/IconSvg";
@@ -104,10 +104,29 @@ const NetworkAddToWallet = () => {
     }
   };
   return (
-    <Button variant="outline" size="sm" onClick={() => handleClick("edexaUniverse")}>
+    <button
+      style={{
+        color: "white",
+        fontSize: "0.875rem",
+        background: "#2B6CB0",
+        height: "2.5rem",
+        position: "relative",
+        outline: "2px solid transparent",
+        lineHeight: "1.2",
+        borderRadius: "8px",
+        paddingInlineStart: "1rem",
+        paddingInlineEnd: "1rem",
+        fontWeight: "600",
+        alignItems: "center",
+        display: "inline-flex",
+        borderWidth: "0",
+        borderStyle: "solid",
+      }}
+      onClick={() => handleClick("edexaUniverse")}
+    >
       <IconSvg name={"wallets/metamask"} boxSize={5} mr={2} />
       Add {config.chain.name}
-    </Button>
+    </button>
   );
 };
 

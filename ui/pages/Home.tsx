@@ -11,6 +11,7 @@ import Transactions from "ui/home/Transactions";
 import ProfileMenuDesktop from "ui/snippets/profileMenu/ProfileMenuDesktop";
 import SearchBar from "ui/snippets/searchBar/SearchBar";
 import AdBanner from "ui/shared/ad/AdBanner";
+import ConnectWalletButton from "ui/shared/ConnectWalletButton";
 
 const rollupFeature = config.features.rollup;
 
@@ -40,7 +41,8 @@ const Home = () => {
             Welcome to {config.chain.name} explorer
           </Heading>
           <Box display={{ base: "none", lg: "block" }}>
-            {config.features.account.isEnabled && <ProfileMenuDesktop />}
+            {/* {config.features.account.isEnabled && <ProfileMenuDesktop />} */}
+            <ConnectWalletButton />
           </Box>
         </Flex>
         <LightMode>

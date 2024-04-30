@@ -152,7 +152,7 @@ const Footer = () => {
           mb={{ base: 5, lg: 10 }}
           _empty={{ display: "none" }}
         >
-          {!config.UI.indexingAlert.intTxs.isHidden && <IntTxsIndexingStatus />}
+          {/* {!config.UI.indexingAlert.intTxs.isHidden && <IntTxsIndexingStatus />} */}
           <NetworkAddToWallet />
         </Flex>
       );
