@@ -50,7 +50,7 @@ const Home = () => {
         </LightMode>
       </Box>
       <Stats />
-      <ChainIndicators />
+      {/* <ChainIndicators /> */}
 
       {/* <AdBanner
         mt={{ base: 6, lg: 8 }}
