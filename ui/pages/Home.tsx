@@ -50,8 +50,21 @@ const Home = () => {
         </LightMode>
       </Box>
       <Stats />
+      <Heading
+        as="h5"
+        size="sm"
+        mb={4}
+        sx={{
+          textAlign: "center",
+          marginTop: "1rem",
+          fontSize: "16px",
+          color: "#dd6b20",
+        }}
+      >
+        Note: We're indexing this chain right now. Some of the counts may be
+        inaccurate.
+      </Heading>
       {/* <ChainIndicators /> */}
-
       {/* <AdBanner
         mt={{ base: 6, lg: 8 }}
         mx="auto"

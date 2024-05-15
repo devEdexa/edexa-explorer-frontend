@@ -4,21 +4,25 @@ import config from "configs/app";
 import IconSvg from "ui/shared/IconSvg";
 import { browserName } from "react-device-detect";
 import * as mixpanel from "lib/mixpanel/index";
+import chain from "configs/app/chain";
+import { getEnvValue } from "configs/app/utils";
 
 const NetworkAddToWallet = () => {
   const toast = useToast();
-
+  
+  const chainName = getEnvValue("NEXT_PUBLIC_NETWORK_NAME");
+  const blockExplorerUrls = getEnvValue("NEXT_PUBLIC_APP_HOST");
   const networks = {
     edexaUniverse: {
-      chainId: `0x${Number(5424).toString(16)}`,
-      chainName: "edeXa Network",
+      chainId: `0x${Number(chain.id).toString(16)}`,
+      chainName: chainName,
       nativeCurrency: {
-        name: "EDX",
-        symbol: "EDX",
-        decimals: 18,
+        name: chain.currency.name,
+        symbol: chain.currency.name,
+        decimals: chain.currency.decimals,
       },
-      rpcUrls: ["https://mainnet.edexa.network/rpc"],
-      blockExplorerUrls: ["https://explorer.edexa.network/"],
+      rpcUrls: [chain.rpcUrl],
+      blockExplorerUrls: [blockExplorerUrls],
     },
   };
 
