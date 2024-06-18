@@ -217,8 +217,8 @@ const TokenPageContent = () => {
     }
 
     return {
-      mt: 3,
-      py: 5,
+      pt: 6,
+      pb: 6,
       marginBottom: 0,
       boxShadow: activeTabIndex === 2 && isSticky ? 'action_bar' : 'none',
     };
@@ -247,7 +247,7 @@ const TokenPageContent = () => {
     <>
       <TextAd mb={ 6 }/>
 
-      <TokenPageTitle tokenQuery={ tokenQuery } addressQuery={ addressQuery }/>
+      <TokenPageTitle tokenQuery={ tokenQuery } addressQuery={ addressQuery } hash={ hashString }/>
 
       <TokenDetails tokenQuery={ tokenQuery }/>
 

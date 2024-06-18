@@ -7,7 +7,7 @@ import { tokenInfo, tokenCounters, bridgedTokenA } from 'mocks/tokens/tokenInfo'
 import { ENVS_MAP } from 'playwright/fixtures/mockEnvs';
 import * as socketServer from 'playwright/fixtures/socketServer';
 import { test, expect, devices } from 'playwright/lib';
-import * as configs from 'playwright/utils/configs';
+import * as pwConfig from 'playwright/utils/config';
 
 import Token from './Token';
 
@@ -25,11 +25,12 @@ const hooksConfig = {
 // test cases which use socket cannot run in parallel since the socket server always run on the same port
 test.describe.configure({ mode: 'serial' });
 
-test.beforeEach(async({ mockApiResponse }) => {
+test.beforeEach(async({ mockApiResponse, mockTextAd }) => {
   await mockApiResponse('token', tokenInfo, { pathParams: { hash } });
   await mockApiResponse('address', contract, { pathParams: { hash } });
   await mockApiResponse('token_counters', tokenCounters, { pathParams: { hash } });
   await mockApiResponse('token_transfers', { items: [], next_page_params: null }, { pathParams: { hash } });
+  await mockTextAd();
 });
 
 test('base view', async({ render, page, createSocket }) => {
@@ -40,8 +41,8 @@ test('base view', async({ render, page, createSocket }) => {
   socketServer.sendMessage(socket, channel, 'total_supply', { total_supply: 10 ** 20 });
 
   await expect(component).toHaveScreenshot({
-    mask: [ page.locator(configs.adsBannerSelector) ],
-    maskColor: configs.maskColor,
+    mask: [ page.locator(pwConfig.adsBannerSelector) ],
+    maskColor: pwConfig.maskColor,
   });
 });
 
@@ -58,8 +59,8 @@ test('with verified info', async({ render, page, createSocket, mockApiResponse, 
   await page.getByRole('button', { name: /project info/i }).click();
 
   await expect(component).toHaveScreenshot({
-    mask: [ page.locator(configs.adsBannerSelector) ],
-    maskColor: configs.maskColor,
+    mask: [ page.locator(pwConfig.adsBannerSelector) ],
+    maskColor: pwConfig.maskColor,
   });
 });
 
@@ -85,8 +86,8 @@ test('bridged token', async({ render, page, createSocket, mockApiResponse, mockA
   socketServer.sendMessage(socket, channel, 'total_supply', { total_supply: 10 ** 20 });
 
   await expect(component).toHaveScreenshot({
-    mask: [ page.locator(configs.adsBannerSelector) ],
-    maskColor: configs.maskColor,
+    mask: [ page.locator(pwConfig.adsBannerSelector) ],
+    maskColor: pwConfig.maskColor,
   });
 });
 
@@ -100,8 +101,8 @@ test.describe('mobile', () => {
     socketServer.sendMessage(socket, channel, 'total_supply', { total_supply: 10 ** 20 });
 
     await expect(component).toHaveScreenshot({
-      mask: [ page.locator(configs.adsBannerSelector) ],
-      maskColor: configs.maskColor,
+      mask: [ page.locator(pwConfig.adsBannerSelector) ],
+      maskColor: pwConfig.maskColor,
     });
   });
 
@@ -115,8 +116,8 @@ test.describe('mobile', () => {
     socketServer.sendMessage(socket, channel, 'total_supply', { total_supply: 10 ** 20 });
 
     await expect(component).toHaveScreenshot({
-      mask: [ page.locator(configs.adsBannerSelector) ],
-      maskColor: configs.maskColor,
+      mask: [ page.locator(pwConfig.adsBannerSelector) ],
+      maskColor: pwConfig.maskColor,
     });
   });
 });
