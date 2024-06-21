@@ -2,10 +2,9 @@ import React from 'react';
 
 import useApiQuery from 'lib/api/useApiQuery';
 import { TX_INTERPRETATION } from 'stubs/txInterpretation';
+import DetailsActionsWrapper from 'ui/shared/DetailsActionsWrapper';
 import DetailsInfoItemDivider from 'ui/shared/DetailsInfoItemDivider';
-import TxInterpretation from 'ui/tx/interpretation/TxInterpretation';
-
-import TxDetailsActionsWrapper from './TxDetailsActionsWrapper';
+import TxInterpretation from 'ui/shared/tx/interpretation/TxInterpretation';
 
 interface Props {
   hash?: string;
@@ -16,7 +15,7 @@ const TxDetailsActionsInterpretation = ({ hash, isTxDataLoading }: Props) => {
   const txInterpretationQuery = useApiQuery('tx_interpretation', {
     pathParams: { hash },
     queryOptions: {
-      enabled: Boolean(hash),
+      enabled: Boolean(hash) && !isTxDataLoading,
       placeholderData: TX_INTERPRETATION,
       refetchOnMount: false,
     },
@@ -30,7 +29,7 @@ const TxDetailsActionsInterpretation = ({ hash, isTxDataLoading }: Props) => {
 
   return (
     <>
-      <TxDetailsActionsWrapper isLoading={ isTxDataLoading || txInterpretationQuery.isPlaceholderData }>
+      <DetailsActionsWrapper isLoading={ isTxDataLoading || txInterpretationQuery.isPlaceholderData } type="tx">
         { actions.map((action, index: number) => (
           <TxInterpretation
             key={ index }
@@ -39,7 +38,7 @@ const TxDetailsActionsInterpretation = ({ hash, isTxDataLoading }: Props) => {
           />
         ),
         ) }
-      </TxDetailsActionsWrapper>
+      </DetailsActionsWrapper>
       <DetailsInfoItemDivider/>
     </>
   );

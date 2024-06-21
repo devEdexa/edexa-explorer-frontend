@@ -47,7 +47,7 @@ const Footer = () => {
   const darkModeFilter = { filter: "brightness(0) invert(1)" };
   const logoStyle = useColorModeValue(
     {},
-    !config.UI.sidebar.logo.dark ? darkModeFilter : {}
+    !config.UI.navigation.logo.dark ? darkModeFilter : {}
   );
   const BLOCKSCOUT_LINKS: any = [
     {
@@ -197,13 +197,13 @@ const Footer = () => {
   );
 
   const containerProps: GridProps = {
-    as: "footer",
-    px: { base: 4, lg: 12 },
-    py: { base: 4, lg: 9 },
-    borderTop: "1px solid",
-    borderColor: "divider",
-    gridTemplateColumns: { base: "1fr", lg: "minmax(auto, 470px) 1fr" },
-    columnGap: { lg: "32px", xl: "100px" },
+    as: 'footer',
+    px: { base: 4, lg: config.UI.navigation.layout === 'horizontal' ? 6 : 12 },
+    py: { base: 4, lg: 8 },
+    borderTop: '1px solid',
+    borderColor: 'divider',
+    gridTemplateColumns: { base: '1fr', lg: 'minmax(auto, 470px) 1fr' },
+    columnGap: { lg: '32px', xl: '100px' },
   };
 
   if (config.UI.footer.links) {

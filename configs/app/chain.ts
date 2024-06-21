@@ -7,22 +7,18 @@ const chain = Object.freeze({
   name: getEnvValue("NEXT_PUBLIC_NETWORK_NAME"),
   shortName: getEnvValue("NEXT_PUBLIC_NETWORK_SHORT_NAME"),
   currency: {
-    name: getEnvValue("NEXT_PUBLIC_NETWORK_CURRENCY_NAME"),
-    // symbol: getEnvValue('NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL'),
-    // hiding ETH for getting EDX token
-    symbol: "EDX",
-
-    decimals:
-      Number(getEnvValue("NEXT_PUBLIC_NETWORK_CURRENCY_DECIMALS")) ||
-      DEFAULT_CURRENCY_DECIMALS,
+    name: getEnvValue('NEXT_PUBLIC_NETWORK_CURRENCY_NAME'),
+    weiName: getEnvValue('NEXT_PUBLIC_NETWORK_CURRENCY_WEI_NAME'),
+    symbol: getEnvValue('NEXT_PUBLIC_NETWORK_CURRENCY_SYMBOL'),
+    decimals: Number(getEnvValue('NEXT_PUBLIC_NETWORK_CURRENCY_DECIMALS')) || DEFAULT_CURRENCY_DECIMALS,
   },
-  governanceToken: {
-    symbol: getEnvValue("NEXT_PUBLIC_NETWORK_GOVERNANCE_TOKEN_SYMBOL"),
+  secondaryCoin: {
+    symbol: getEnvValue('NEXT_PUBLIC_NETWORK_SECONDARY_COIN_SYMBOL'),
   },
-  rpcUrl: getEnvValue("NEXT_PUBLIC_NETWORK_RPC_URL"),
-  isTestnet: getEnvValue("NEXT_PUBLIC_IS_TESTNET") === "true",
-  verificationType:
-    getEnvValue("NEXT_PUBLIC_NETWORK_VERIFICATION_TYPE") || "mining",
+  tokenStandard: getEnvValue('NEXT_PUBLIC_NETWORK_TOKEN_STANDARD_NAME') || 'ERC',
+  rpcUrl: getEnvValue('NEXT_PUBLIC_NETWORK_RPC_URL'),
+  isTestnet: getEnvValue('NEXT_PUBLIC_IS_TESTNET') === 'true',
+  verificationType: getEnvValue('NEXT_PUBLIC_NETWORK_VERIFICATION_TYPE') || 'mining',
 });
 
 export default chain;

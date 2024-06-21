@@ -1,4 +1,4 @@
-import { IconButton, Tooltip, useClipboard, chakra, useDisclosure, Skeleton } from '@chakra-ui/react';
+import { IconButton, Tooltip, useClipboard, chakra, useDisclosure, Skeleton, useColorModeValue } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 
 import IconSvg from 'ui/shared/IconSvg';
@@ -7,13 +7,15 @@ export interface Props {
   text: string;
   className?: string;
   isLoading?: boolean;
+  onClick?: (event: React.MouseEvent) => void;
 }
 
-const CopyToClipboard = ({ text, className, isLoading }: Props) => {
+const CopyToClipboard = ({ text, className, isLoading, onClick }: Props) => {
   const { hasCopied, onCopy } = useClipboard(text, 1000);
   const [ copied, setCopied ] = useState(false);
   // have to implement controlled tooltip because of the issue - https://github.com/chakra-ui/chakra-ui/issues/7107
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const iconColor = useColorModeValue('gray.400', 'gray.500');
 
   useEffect(() => {
     if (hasCopied) {
@@ -23,8 +25,13 @@ const CopyToClipboard = ({ text, className, isLoading }: Props) => {
     }
   }, [ hasCopied ]);
 
+  const handleClick = React.useCallback((event: React.MouseEvent) => {
+    onCopy();
+    onClick?.(event);
+  }, [ onClick, onCopy ]);
+
   if (isLoading) {
-    return <Skeleton boxSize={ 5 } className={ className } borderRadius="sm" flexShrink={ 0 } ml={ 2 }/>;
+    return <Skeleton boxSize={ 5 } className={ className } borderRadius="sm" flexShrink={ 0 } ml={ 2 } display="inline-block"/>;
   }
 
   return (
@@ -34,11 +41,11 @@ const CopyToClipboard = ({ text, className, isLoading }: Props) => {
         icon={ <IconSvg name="copy" boxSize={ 5 }/> }
         w="20px"
         h="20px"
-        color="gray.400"
+        color={ iconColor }
         variant="simple"
         display="inline-block"
         flexShrink={ 0 }
-        onClick={ onCopy }
+        onClick={ handleClick }
         className={ className }
         onMouseEnter={ onOpen }
         onMouseLeave={ onClose }

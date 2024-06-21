@@ -1,22 +1,27 @@
 import Head from "next/head";
 import React from "react";
 
-import type { Route } from "nextjs-routes";
+import type { Route } from 'nextjs-routes';
+import type { Props as PageProps } from 'nextjs/getServerSideProps';
 
-import useAdblockDetect from "lib/hooks/useAdblockDetect";
-import useGetCsrfToken from "lib/hooks/useGetCsrfToken";
-import * as metadata from "lib/metadata";
-import * as mixpanel from "lib/mixpanel";
-import { init as initSentry } from "lib/sentry/config";
+import config from 'configs/app';
+import useAdblockDetect from 'lib/hooks/useAdblockDetect';
+import useGetCsrfToken from 'lib/hooks/useGetCsrfToken';
+import * as metadata from 'lib/metadata';
+import * as mixpanel from 'lib/mixpanel';
+import { init as initSentry } from 'lib/sentry/config';
 
-type Props = Route & {
+interface Props<Pathname extends Route['pathname']> {
+  pathname: Pathname;
   children: React.ReactNode;
-};
+  query?: PageProps<Pathname>['query'];
+  apiData?: PageProps<Pathname>['apiData'];
+}
 
 initSentry();
 
-const PageNextJs = (props: Props) => {
-  const { title, description, opengraph } = metadata.generate(props);
+const PageNextJs = <Pathname extends Route['pathname']>(props: Props<Pathname>) => {
+  const { title, description, opengraph, canonical } = metadata.generate(props, props.apiData);
 
   useGetCsrfToken();
   useAdblockDetect();

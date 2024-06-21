@@ -55,9 +55,9 @@ const NetworkMenuLink = ({
     <Box as="li" listStyleType="none">
       <Flex
         as="a"
-        href={url}
-        px={isMobile ? 3 : 4}
-        py={2}
+        href={ url }
+        px={ 3 }
+        py="9px"
         alignItems="center"
         cursor="pointer"
         pointerEvents={isActive ? "none" : "initial"}

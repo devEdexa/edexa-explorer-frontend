@@ -5,7 +5,7 @@ import React from 'react';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import TextAd from 'ui/shared/ad/TextAd';
 import IconSvg from 'ui/shared/IconSvg';
-import LinkInternal from 'ui/shared/LinkInternal';
+import LinkInternal from 'ui/shared/links/LinkInternal';
 
 type BackLinkProp = { label: string; url: string } | { label: string; onClick: () => void };
 
@@ -143,7 +143,7 @@ const PageTitle = ({ title, contentAfter, withTextAd, backLink, className, isLoa
         { withTextAd && <TextAd order={{ base: -1, lg: 100 }} mb={{ base: 6, lg: 0 }} ml="auto" w={{ base: '100%', lg: 'auto' }}/> }
       </Flex>
       { secondRow && (
-        <Flex alignItems="center" minH={ 10 } overflow="hidden">
+        <Flex alignItems="center" minH={ 10 } overflow="hidden" _empty={{ display: 'none' }}>
           { secondRow }
         </Flex>
       ) }

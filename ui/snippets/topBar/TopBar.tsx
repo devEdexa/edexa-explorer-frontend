@@ -1,7 +1,11 @@
-import { Flex, useColorModeValue } from '@chakra-ui/react';
+import { Flex, Divider, useColorModeValue, Box } from '@chakra-ui/react';
 import React from 'react';
 
-import ColorModeSwitch from './ColorModeSwitch';
+import config from 'configs/app';
+
+import DeFiDropdown from './DeFiDropdown';
+import NetworkMenu from './NetworkMenu';
+import Settings from './settings/Settings';
 import TopBarStats from './TopBarStats';
 
 const TopBar = () => {
@@ -10,12 +14,27 @@ const TopBar = () => {
   return (
     <Flex
       py={ 2 }
-      px={ 6 }
+      px={{ base: 3, lg: 6 }}
       bgColor={ bgColor }
       justifyContent="space-between"
+      alignItems="center"
     >
       <TopBarStats/>
-      <ColorModeSwitch/>
+      <Flex alignItems="center">
+        { config.features.deFiDropdown.isEnabled && (
+          <>
+            <DeFiDropdown/>
+            <Divider mr={ 3 } ml={{ base: 2, sm: 3 }} height={ 4 } orientation="vertical"/>
+          </>
+        ) }
+        <Settings/>
+        { config.UI.navigation.layout === 'horizontal' && Boolean(config.UI.navigation.featuredNetworks) && (
+          <Box display={{ base: 'none', lg: 'flex' }}>
+            <Divider mx={ 3 } height={ 4 } orientation="vertical"/>
+            <NetworkMenu/>
+          </Box>
+        ) }
+      </Flex>
     </Flex>
   );
 };

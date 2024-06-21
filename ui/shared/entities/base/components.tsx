@@ -8,17 +8,19 @@ import HashStringShorten from 'ui/shared/HashStringShorten';
 import HashStringShortenDynamic from 'ui/shared/HashStringShortenDynamic';
 import type { IconName } from 'ui/shared/IconSvg';
 import IconSvg from 'ui/shared/IconSvg';
-import LinkExternal from 'ui/shared/LinkExternal';
-import LinkInternal from 'ui/shared/LinkInternal';
+import LinkExternal from 'ui/shared/links/LinkExternal';
+import LinkInternal from 'ui/shared/links/LinkInternal';
 
 import { getIconProps, type IconSize } from './utils';
 
-export type Truncation = 'constant' | 'dynamic' | 'tail' | 'none';
+export type Truncation = 'constant' | 'constant_long' | 'dynamic' | 'tail' | 'none';
 
 export interface EntityBaseProps {
   className?: string;
   href?: string;
+  iconName?: IconName;
   iconSize?: IconSize;
+  iconColor?: IconProps['color'];
   isExternal?: boolean;
   isLoading?: boolean;
   noCopy?: boolean;
@@ -33,14 +35,17 @@ export interface EntityBaseProps {
 
 export interface ContainerBaseProps extends Pick<EntityBaseProps, 'className'> {
   children: React.ReactNode;
+  onMouseEnter?: (event: React.MouseEvent) => void;
+  onMouseLeave?: (event: React.MouseEvent) => void;
 }
 
-const Container = chakra(({ className, children }: ContainerBaseProps) => {
+const Container = chakra(({ className, children, ...props }: ContainerBaseProps) => {
   return (
     <Flex
       className={ className }
       alignItems="center"
       minWidth={ 0 } // for content truncation - https://css-tricks.com/flexbox-truncated-text/
+      { ...props }
     >
       { children }
     </Flex>
@@ -114,6 +119,14 @@ const Content = chakra(({ className, isLoading, asProp, text, truncation = 'dyna
 
   const children = (() => {
     switch (truncation) {
+      case 'constant_long':
+        return (
+          <HashStringShorten
+            hash={ text }
+            as={ asProp }
+            type="long"
+          />
+        );
       case 'constant':
         return (
           <HashStringShorten

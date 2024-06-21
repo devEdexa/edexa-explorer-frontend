@@ -1,11 +1,11 @@
 import { GridItem } from "@chakra-ui/react";
 import React from "react";
 
-import config from "configs/app";
-import * as cookies from "lib/cookies";
-import useIsMobile from "lib/hooks/useIsMobile";
-import AdBanner from "ui/shared/ad/AdBanner";
-import DetailsInfoItem from "ui/shared/DetailsInfoItem";
+import config from 'configs/app';
+import * as cookies from 'lib/cookies';
+import useIsMobile from 'lib/hooks/useIsMobile';
+import AdBanner from 'ui/shared/ad/AdBanner';
+import * as DetailsInfoItem from 'ui/shared/DetailsInfoItem';
 
 const feature = config.features.adsBanner;
 
@@ -17,7 +17,7 @@ const DetailsSponsoredItem = ({ isLoading }: Props) => {
   const isMobile = useIsMobile();
   const hasAdblockCookie = cookies.get(cookies.NAMES.ADBLOCK_DETECTED);
 
-  if (!feature.isEnabled || hasAdblockCookie) {
+  if (!feature.isEnabled || hasAdblockCookie === 'true') {
     return null;
   }
 
@@ -31,14 +31,17 @@ const DetailsSponsoredItem = ({ isLoading }: Props) => {
   }
 
   return (
-    <DetailsInfoItem
-      title="Sponsored"
-      hint="Sponsored banner advertisement"
-      isLoading={isLoading}
-    >
-      {/* hiding for presale banner */}
-      {/* <AdBanner isLoading={ isLoading }/> */}
-    </DetailsInfoItem>
+    <>
+      <DetailsInfoItem.Label
+        hint="Sponsored banner advertisement"
+        isLoading={ isLoading }
+      >
+        Sponsored
+      </DetailsInfoItem.Label>
+      {/* <DetailsInfoItem.Value>
+        <AdBanner isLoading={ isLoading }/>
+      </DetailsInfoItem.Value> */}
+    </>
   );
 };
 
