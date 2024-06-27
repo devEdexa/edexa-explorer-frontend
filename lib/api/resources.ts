@@ -46,8 +46,6 @@ import type { ChartMarketResponse, ChartSecondaryCoinPriceResponse, ChartTransac
 import type { BackendVersionConfig } from 'types/api/configs';
 import type {
   SmartContract,
-  SmartContractReadMethod,
-  SmartContractWriteMethod,
   SmartContractVerificationConfig,
   SolidityscanReport,
   SmartContractSecurityAudits,
@@ -465,26 +463,6 @@ export const RESOURCES = {
     path: '/api/v2/smart-contracts/:hash',
     pathParams: [ 'hash' as const ],
   },
-  contract_methods_read: {
-    path: '/api/v2/smart-contracts/:hash/methods-read',
-    pathParams: [ 'hash' as const ],
-  },
-  contract_methods_read_proxy: {
-    path: '/api/v2/smart-contracts/:hash/methods-read-proxy',
-    pathParams: [ 'hash' as const ],
-  },
-  contract_method_query: {
-    path: '/api/v2/smart-contracts/:hash/query-read-method',
-    pathParams: [ 'hash' as const ],
-  },
-  contract_methods_write: {
-    path: '/api/v2/smart-contracts/:hash/methods-write',
-    pathParams: [ 'hash' as const ],
-  },
-  contract_methods_write_proxy: {
-    path: '/api/v2/smart-contracts/:hash/methods-write-proxy',
-    pathParams: [ 'hash' as const ],
-  },
   contract_verification_config: {
     path: '/api/v2/smart-contracts/verification/config',
   },
@@ -564,6 +542,11 @@ export const RESOURCES = {
   },
   token_instance_holders: {
     path: '/api/v2/tokens/:hash/instances/:id/holders',
+    pathParams: [ 'hash' as const, 'id' as const ],
+    filterFields: [],
+  },
+  token_instance_refresh_metadata: {
+    path: '/api/v2/tokens/:hash/instances/:id/refetch-metadata',
     pathParams: [ 'hash' as const, 'id' as const ],
     filterFields: [],
   },
@@ -1000,10 +983,6 @@ Q extends 'quick_search' ? Array<SearchResultItem> :
 Q extends 'search' ? SearchResult :
 Q extends 'search_check_redirect' ? SearchRedirectResult :
 Q extends 'contract' ? SmartContract :
-Q extends 'contract_methods_read' ? Array<SmartContractReadMethod> :
-Q extends 'contract_methods_read_proxy' ? Array<SmartContractReadMethod> :
-Q extends 'contract_methods_write' ? Array<SmartContractWriteMethod> :
-Q extends 'contract_methods_write_proxy' ? Array<SmartContractWriteMethod> :
 Q extends 'contract_solidityscan_report' ? SolidityscanReport :
 Q extends 'verified_contracts' ? VerifiedContractsResponse :
 Q extends 'verified_contracts_counters' ? VerifiedContractsCounters :
