@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-imports */
 import type {
   StyleProps } from '@chakra-ui/react';
 import {
@@ -6,12 +7,14 @@ import {
   useColorModeValue,
   Skeleton,
   chakra,
+  Icon,
 } from '@chakra-ui/react';
 import React from 'react';
-import iconPlaceholder from "icons/edexaSocial/bigLogo.svg";
+
 import { route } from 'nextjs-routes';
 
 import config from 'configs/app';
+import iconPlaceholder from 'icons/edexaSocial/bigLogo.svg';
 
 interface Props {
   isCollapsed?: boolean;
@@ -42,7 +45,7 @@ const LogoFallback = ({
       xl: isCollapsed ? 'none' : 'block',
     };
 
-  if (config.UI.sidebar[field].default) {
+  if (config.UI.navigation[field].default) {
     return <Skeleton w="100%" borderRadius="sm" display={ display }/>;
   }
 
@@ -63,14 +66,14 @@ const LogoFallback = ({
 };
 
 const NetworkLogo = ({ isCollapsed, onClick, className }: Props) => {
-  const logoSrc = useColorModeValue(
-    config.UI.navigation.logo.default,
-    config.UI.navigation.logo.dark || config.UI.navigation.logo.default,
-  );
-  const iconSrc = useColorModeValue(
-    config.UI.navigation.icon.default,
-    config.UI.navigation.icon.dark || config.UI.navigation.icon.default,
-  );
+  // const logoSrc = useColorModeValue(
+  //   config.UI.navigation.logo.default,
+  //   config.UI.navigation.logo.dark || config.UI.navigation.logo.default,
+  // );
+  // const iconSrc = useColorModeValue(
+  //   config.UI.navigation.icon.default,
+  //   config.UI.navigation.icon.dark || config.UI.navigation.icon.default,
+  // );
   const darkModeFilter = { filter: 'brightness(0) invert(1)' };
   const logoStyle = useColorModeValue(
     {},
