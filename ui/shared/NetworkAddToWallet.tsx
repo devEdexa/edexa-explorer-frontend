@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable react/jsx-no-bind */
 import { Button, useToast } from '@chakra-ui/react';
 import React from 'react';
@@ -28,7 +30,7 @@ const NetworkAddToWallet = () => {
     },
   };
 
-  const changeNetwork = async({ networkName }) => {
+  const changeNetwork = async({ networkName }: any) => {
     try {
       if (!window?.ethereum) {
         throw new Error('No crypto wallet found');
@@ -36,6 +38,7 @@ const NetworkAddToWallet = () => {
       await window?.ethereum.request({
         method: 'wallet_addEthereumChain',
         params: [
+          // @ts-ignore
           { ...networks[networkName] },
         ],
       });
@@ -47,7 +50,7 @@ const NetworkAddToWallet = () => {
         variant: 'subtle',
         isClosable: true,
       });
-    } catch (err) {
+    } catch (err: any) {
       toast({
         position: 'top-right',
         title: 'Error',
@@ -64,13 +67,13 @@ const NetworkAddToWallet = () => {
       if (window?.ethereum) {
         window?.ethereum
           .request({ method: 'eth_requestAccounts' })
-          .then((result) => {
+          .then((result: any) => {
             mixpanel.logEvent(mixpanel.EventTypes.ADD_TO_WALLET, {
               Target: 'network',
               Wallet: result[0],
             });
           })
-          .catch((err) => {
+          .catch((err: any) => {
             return err;
           });
       } else {
@@ -110,6 +113,7 @@ const NetworkAddToWallet = () => {
       });
     }
   };
+
   return (
     <Button
       variant="outline"
