@@ -1,29 +1,44 @@
-import { Button } from '@chakra-ui/react';
+/* eslint-disable react/jsx-no-bind */
+import { Button, useToast } from '@chakra-ui/react';
 import React from 'react';
+import { browserName } from 'react-device-detect';
 
 import config from 'configs/app';
-import useToast from 'lib/hooks/useToast';
+import chain from 'configs/app/chain';
+import { getEnvValue } from 'configs/app/utils';
 import * as mixpanel from 'lib/mixpanel/index';
-import useAddOrSwitchChain from 'lib/web3/useAddOrSwitchChain';
-import useProvider from 'lib/web3/useProvider';
-import { WALLETS_INFO } from 'lib/web3/wallets';
 import IconSvg from 'ui/shared/IconSvg';
-
-const feature = config.features.web3Wallet;
 
 const NetworkAddToWallet = () => {
   const toast = useToast();
-  const { provider, wallet } = useProvider();
-  const addOrSwitchChain = useAddOrSwitchChain();
 
-  const handleClick = React.useCallback(async() => {
-    if (!wallet || !provider) {
-      return;
-    }
+  const chainName = getEnvValue('NEXT_PUBLIC_NETWORK_NAME');
+  const blockExplorerUrls = getEnvValue('NEXT_PUBLIC_APP_HOST');
+  const networks = {
+    edexaUniverse: {
+      chainId: `0x${ Number(chain.id).toString(16) }`,
+      chainName: chainName,
+      nativeCurrency: {
+        name: chain.currency.name,
+        symbol: chain.currency.name,
+        decimals: chain.currency.decimals,
+      },
+      rpcUrls: [ chain.rpcUrl ],
+      blockExplorerUrls: [ blockExplorerUrls ],
+    },
+  };
 
+  const changeNetwork = async({ networkName }) => {
     try {
-      await addOrSwitchChain();
-
+      if (!window?.ethereum) {
+        throw new Error('No crypto wallet found');
+      }
+      await window?.ethereum.request({
+        method: 'wallet_addEthereumChain',
+        params: [
+          { ...networks[networkName] },
+        ],
+      });
       toast({
         position: 'top-right',
         title: 'Success',
@@ -32,12 +47,58 @@ const NetworkAddToWallet = () => {
         variant: 'subtle',
         isClosable: true,
       });
-
-      mixpanel.logEvent(mixpanel.EventTypes.ADD_TO_WALLET, {
-        Target: 'network',
-        Wallet: wallet,
+    } catch (err) {
+      toast({
+        position: 'top-right',
+        title: 'Error',
+        description: (err.stack as Error)?.message || 'Something went wrong',
+        status: 'error',
+        variant: 'subtle',
+        isClosable: true,
       });
+    }
+  };
 
+  const handleClick = async(networkName: string) => {
+    try {
+      if (window?.ethereum) {
+        window?.ethereum
+          .request({ method: 'eth_requestAccounts' })
+          .then((result) => {
+            mixpanel.logEvent(mixpanel.EventTypes.ADD_TO_WALLET, {
+              Target: 'network',
+              Wallet: result[0],
+            });
+          })
+          .catch((err) => {
+            return err;
+          });
+      } else {
+        if (browserName === 'Chrome') {
+          window.open(
+            'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en',
+            '_blank', // <- This is what makes it open in a new window.
+          );
+        } else if (browserName === 'Firefox') {
+          window.open(
+            'https://addons.mozilla.org/en-US/firefox/addon/ether-metamask/',
+            '_blank',
+          );
+        } else if (browserName === 'Edge') {
+          window.open(
+            'https://microsoftedge.microsoft.com/addons/detail/metamask/ejbalbakoplchlghecdalmeeeajnimhm?hl=en-US',
+            '_blank',
+          );
+        } else if (browserName === 'Brave') {
+          window.open(
+            'https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn',
+            '_blank',
+          );
+        } else {
+          window.open('https://metamask.io/download/', '_blank');
+        }
+      }
+      await changeNetwork({ networkName });
     } catch (error) {
       toast({
         position: 'top-right',
@@ -48,16 +109,15 @@ const NetworkAddToWallet = () => {
         isClosable: true,
       });
     }
-  }, [ addOrSwitchChain, provider, toast, wallet ]);
-
-  if (!provider || !wallet || !config.chain.rpcUrl || !feature.isEnabled) {
-    return null;
-  }
-
+  };
   return (
-    <Button variant="outline" size="sm" onClick={ handleClick }>
-      <IconSvg name={ WALLETS_INFO[wallet].icon } boxSize={ 5 } mr={ 2 }/>
-        Add { config.chain.name }
+    <Button
+      variant="outline"
+      size="sm"
+      onClick={ () => handleClick('edexaUniverse') }
+    >
+      <IconSvg name="wallets/metamask" boxSize={ 5 } mr={ 2 }/>
+      Add { config.chain.name }
     </Button>
   );
 };
