@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import type { HTMLChakraProps } from '@chakra-ui/react';
 import { Skeleton, chakra } from '@chakra-ui/react';
 import { type IconName } from 'public/icons/name';
@@ -13,6 +14,8 @@ interface Props extends HTMLChakraProps<'div'> {
 }
 
 const IconSvg = ({ name, isLoading, ...props }: Props, ref: React.ForwardedRef<HTMLDivElement>) => {
+  console.log('name in IconSvg', name);
+  console.log('href in IconSvg', href);
   return (
     <Skeleton isLoaded={ !isLoading } display="inline-block" { ...props } ref={ ref }>
       <chakra.svg w="100%" h="100%">

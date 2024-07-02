@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Center, Link, Skeleton } from '@chakra-ui/react';
 import React from 'react';
 
@@ -16,6 +17,7 @@ const FooterLinkItem = ({ icon, iconSize, text, url, isLoading }: Props) => {
   if (isLoading) {
     return <Skeleton my="3px">{ text }</Skeleton>;
   }
+  console.log('icon in FooterLinkItem', icon);
 
   return (
     <Link href={ url } display="flex" alignItems="center" h="30px" variant="secondary" target="_blank" fontSize="xs">
