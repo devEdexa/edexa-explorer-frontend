@@ -1,6 +1,4 @@
 /* eslint-disable no-restricted-imports */
-import type {
-  StyleProps } from '@chakra-ui/react';
 import {
   Box,
   Image,
@@ -25,11 +23,9 @@ interface Props {
 const LogoFallback = ({
   isCollapsed,
   isSmall,
-  imageProps,
 }: {
   isCollapsed?: boolean;
   isSmall?: boolean;
-  imageProps?: StyleProps;
 }) => {
   const field = isSmall ? 'icon' : 'logo';
   const logoColor = useColorModeValue('blue.600', 'white');
@@ -60,7 +56,6 @@ const LogoFallback = ({
       height="100%"
       color={ logoColor }
       display={ display }
-      { ...imageProps }
     />
   );
 };
@@ -113,7 +108,7 @@ const NetworkLogo = ({ isCollapsed, onClick, className }: Props) => {
         src="https://edexa-general.s3.ap-south-1.amazonaws.com/logo.svg"
         alt={ `${ config.chain.name } network logo` }
         fallback={
-          <LogoFallback isCollapsed={ isCollapsed } imageProps={ imageProps }/>
+          <LogoFallback isCollapsed={ isCollapsed }/>
         }
         display={{
           base: 'block',
@@ -121,7 +116,6 @@ const NetworkLogo = ({ isCollapsed, onClick, className }: Props) => {
           xl: isCollapsed ? 'none' : 'block',
         }}
         style={ logoStyle }
-        { ...imageProps }
       />
       { /* small logo */ }
       <Image
@@ -134,7 +128,6 @@ const NetworkLogo = ({ isCollapsed, onClick, className }: Props) => {
         fallback={ (
           <LogoFallback
             isCollapsed={ isCollapsed }
-            imageProps={ imageProps }
             isSmall
           />
         ) }
@@ -144,7 +137,6 @@ const NetworkLogo = ({ isCollapsed, onClick, className }: Props) => {
           xl: isCollapsed ? 'block' : 'none',
         }}
         style={ iconStyle }
-        { ...imageProps }
       />
     </Box>
   );
