@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-imports */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { GridProps } from '@chakra-ui/react';
 import {
   Box,
@@ -28,8 +30,6 @@ import useFetch from 'lib/hooks/useFetch';
 import NetworkAddToWallet from 'ui/shared/NetworkAddToWallet';
 
 import FooterLinkItem from './FooterLinkItem';
-import IntTxsIndexingStatus from './IntTxsIndexingStatus';
-import getApiVersionUrl from './utils/getApiVersionUrl';
 
 const MAX_LINKS_COLUMNS = 4;
 
@@ -47,7 +47,7 @@ const Footer = () => {
   const darkModeFilter = { filter: 'brightness(0) invert(1)' };
   const logoStyle = useColorModeValue(
     {},
-    !config.UI.sidebar.logo.dark ? darkModeFilter : {},
+    !config.UI.navigation.logo.dark ? darkModeFilter : {},
   );
   const BLOCKSCOUT_LINKS: any = [
     {
@@ -159,7 +159,7 @@ const Footer = () => {
         </Box>
       );
     },
-    [],
+    [ logoStyle ],
   );
 
   const containerProps: GridProps = {
@@ -253,7 +253,7 @@ const Footer = () => {
         justifyContent={{ lg: 'flex-end' }}
         mt={{ base: 8, lg: 0 }}
       >
-        { BLOCKSCOUT_LINKS.map((link) => (
+        { BLOCKSCOUT_LINKS.map((link: any) => (
           <FooterLinkItem { ...link } key={ link.text }/>
         )) }
       </Grid>
