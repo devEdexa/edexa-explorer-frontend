@@ -1,11 +1,10 @@
 /* eslint-disable no-restricted-imports */
 import {
+  Icon,
   Box,
   Image,
   useColorModeValue,
   Skeleton,
-  chakra,
-  Icon,
 } from '@chakra-ui/react';
 import React from 'react';
 
@@ -30,11 +29,12 @@ const LogoFallback = ({
   const field = isSmall ? 'icon' : 'logo';
   const logoColor = useColorModeValue('blue.600', 'white');
 
-  const display = isSmall ? {
-    base: 'none',
-    lg: isCollapsed === false ? 'none' : 'block',
-    xl: isCollapsed ? 'block' : 'none',
-  } :
+  const display = isSmall ?
+    {
+      base: 'none',
+      lg: isCollapsed === false ? 'none' : 'block',
+      xl: isCollapsed ? 'block' : 'none',
+    } :
     {
       base: 'block',
       lg: isCollapsed === false ? 'block' : 'none',
@@ -85,14 +85,14 @@ const NetworkLogo = ({ isCollapsed, onClick, className }: Props) => {
       as="a"
       href={ route({ pathname: '/' }) }
       width={{
-        base: '120px',
+        base: 'auto',
         lg: isCollapsed === false ? '120px' : '30px',
         xl: isCollapsed ? '30px' : '120px',
       }}
       height={{
         base: '24px',
         lg: isCollapsed === false ? '24px' : '30px',
-        xl: isCollapsed ? '30px' : '24px',
+        xl: isCollapsed ? '30px' : '35px',
       }}
       display="inline-flex"
       overflow="hidden"
@@ -101,6 +101,7 @@ const NetworkLogo = ({ isCollapsed, onClick, className }: Props) => {
       aria-label="Link to main page"
     >
       { /* big logo */ }
+      { /* Added big logo src from edexa */ }
       <Image
         w="auto"
         h="100%"
@@ -118,6 +119,7 @@ const NetworkLogo = ({ isCollapsed, onClick, className }: Props) => {
         style={ logoStyle }
       />
       { /* small logo */ }
+      { /* Added small  src logo from edexa */ }
       <Image
         w="auto"
         h="100%"
@@ -142,4 +144,4 @@ const NetworkLogo = ({ isCollapsed, onClick, className }: Props) => {
   );
 };
 
-export default React.memo(chakra(NetworkLogo));
+export default React.memo(NetworkLogo);
