@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-restricted-imports */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { GridProps } from '@chakra-ui/react';
@@ -49,9 +50,10 @@ const Footer = () => {
     {},
     !config.UI.navigation.logo.dark ? darkModeFilter : {},
   );
+
   const BLOCKSCOUT_LINKS: any = [
     {
-      icon: linkedInIcon,
+      icon: <Image src={ linkedInIcon } alt="LinkedIn"/>,
       iconSize: '20px',
       text: 'LinkedIn',
       url: 'https://www.linkedin.com/company/edexablockchain/',
@@ -222,6 +224,8 @@ const Footer = () => {
     );
   }
 
+  console.log('linkedInIcon', linkedInIcon);
+
   return (
     <Grid
       { ...containerProps }
@@ -254,7 +258,7 @@ const Footer = () => {
         mt={{ base: 8, lg: 0 }}
       >
         { BLOCKSCOUT_LINKS.map((link: any) => (
-          <FooterLinkItem { ...link } key={ link.text }/>
+          <FooterLinkItem { ...link } key={ link.text } icon={ link.icon }/>
         )) }
       </Grid>
     </Grid>
