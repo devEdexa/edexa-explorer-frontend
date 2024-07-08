@@ -53,7 +53,7 @@ const Footer = () => {
 
   const BLOCKSCOUT_LINKS: any = [
     {
-      icon: <Image src={ linkedInIcon } alt="LinkedIn"/>,
+      icon: linkedInIcon,
       iconSize: '20px',
       text: 'LinkedIn',
       url: 'https://www.linkedin.com/company/edexablockchain/',
