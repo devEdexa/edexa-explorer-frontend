@@ -129,7 +129,7 @@ const NavigationDesktop = () => {
         id="expand-icon"
         display="none"
       />
-      <ENSTab/>
+      <ENSTab isCollapsed={ isCollapsed }/>
     </Flex>
   );
 };
