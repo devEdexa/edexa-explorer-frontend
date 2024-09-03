@@ -7,6 +7,7 @@ import * as cookies from 'lib/cookies';
 import useHasAccount from 'lib/hooks/useHasAccount';
 import useNavItems, { isGroupItem } from 'lib/hooks/useNavItems';
 import getDefaultTransitionProps from 'theme/utils/getDefaultTransitionProps';
+import ENSTab from 'ui/shared/ENSTab';
 import IconSvg from 'ui/shared/IconSvg';
 import NetworkLogo from 'ui/snippets/networkMenu/NetworkLogo';
 import NetworkMenu from 'ui/snippets/networkMenu/NetworkMenu';
@@ -128,6 +129,7 @@ const NavigationDesktop = () => {
         id="expand-icon"
         display="none"
       />
+      <ENSTab/>
     </Flex>
   );
 };

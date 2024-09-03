@@ -224,8 +224,6 @@ const Footer = () => {
     );
   }
 
-  console.log('linkedInIcon', linkedInIcon);
-
   return (
     <Grid
       { ...containerProps }
