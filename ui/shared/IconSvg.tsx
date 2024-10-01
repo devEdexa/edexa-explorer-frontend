@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import type { HTMLChakraProps } from '@chakra-ui/react';
 import { Skeleton, chakra } from '@chakra-ui/react';
 import { type IconName } from 'public/icons/name';
