@@ -2,8 +2,8 @@ import { Box, Heading, Flex, LightMode } from '@chakra-ui/react';
 import React from 'react';
 
 import config from 'configs/app';
+import LatestZkEvmL2Batches from 'ui/home/latestBatches/LatestZkEvmL2Batches';
 import LatestBlocks from 'ui/home/LatestBlocks';
-import LatestZkEvmL2Batches from 'ui/home/LatestZkEvmL2Batches';
 import Stats from 'ui/home/Stats';
 import Transactions from 'ui/home/Transactions';
 // import AdBanner from 'ui/shared/ad/AdBanner';
