@@ -1,11 +1,8 @@
-import { Center, Link, Skeleton } from '@chakra-ui/react';
+import { Center, Icon, Link, Skeleton } from '@chakra-ui/react';
 import React from 'react';
 
-import type { IconName } from 'ui/shared/IconSvg';
-import IconSvg from 'ui/shared/IconSvg';
-
 type Props = {
-  icon?: IconName;
+  icon?: React.FC<React.SVGAttributes<SVGElement>>;
   iconSize?: string;
   text: string;
   url: string;
@@ -21,7 +18,7 @@ const FooterLinkItem = ({ icon, iconSize, text, url, isLoading }: Props) => {
     <Link href={ url } display="flex" alignItems="center" h="30px" variant="secondary" target="_blank" fontSize="xs">
       { icon && (
         <Center minW={ 6 } mr={ 2 }>
-          <IconSvg boxSize={ iconSize || 5 } name={ icon }/>
+          <Icon boxSize={ iconSize || 5 } as={ icon }/>
         </Center>
       ) }
       { text }

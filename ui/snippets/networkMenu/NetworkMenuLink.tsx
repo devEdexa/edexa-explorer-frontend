@@ -1,9 +1,18 @@
-import { Box, Flex, Text, Image, useColorModeValue } from '@chakra-ui/react';
+/* eslint-disable no-restricted-imports */
+import {
+  Box,
+  Flex,
+  Icon,
+  Text,
+  Image,
+  useColorModeValue,
+} from '@chakra-ui/react';
 import React from 'react';
 
 import type { FeaturedNetwork } from 'types/networks';
 
-import IconSvg from 'ui/shared/IconSvg';
+import checkIcon from 'icons/check.svg';
+import placeholderIcon from 'icons/edexaSocial/bigLogo.svg';
 
 import useColors from './useColors';
 
@@ -12,16 +21,32 @@ interface Props extends FeaturedNetwork {
   isMobile?: boolean;
 }
 
-const NetworkMenuLink = ({ title, icon, isActive, isMobile, url, invertIconInDarkMode }: Props) => {
+const NetworkMenuLink = ({
+  title,
+  icon,
+  isActive,
+  isMobile,
+  url,
+  invertIconInDarkMode,
+}: Props) => {
   const colors = useColors();
   const darkModeFilter = { filter: 'brightness(0) invert(1)' };
-  const style = useColorModeValue({}, invertIconInDarkMode ? darkModeFilter : {});
+  const style = useColorModeValue(
+    {},
+    invertIconInDarkMode ? darkModeFilter : {},
+  );
 
   const iconEl = icon ? (
-    <Image w="30px" h="30px" src={ icon } alt={ `${ title } network icon` } style={ style }/>
+    <Image
+      w="30px"
+      h="30px"
+      src={ icon }
+      alt={ `${ title } network icon` }
+      style={ style }
+    />
   ) : (
-    <IconSvg
-      name="networks/icon-placeholder"
+    <Icon
+      as={ placeholderIcon }
       boxSize="30px"
       color={ colors.iconPlaceholder.default }
     />
@@ -32,8 +57,8 @@ const NetworkMenuLink = ({ title, icon, isActive, isMobile, url, invertIconInDar
       <Flex
         as="a"
         href={ url }
-        px={ 3 }
-        py="9px"
+        px={ isMobile ? 3 : 4 }
+        py={ 2 }
         alignItems="center"
         cursor="pointer"
         pointerEvents={ isActive ? 'none' : 'initial' }
@@ -52,13 +77,7 @@ const NetworkMenuLink = ({ title, icon, isActive, isMobile, url, invertIconInDar
         >
           { title }
         </Text>
-        { isActive && (
-          <IconSvg
-            name="check"
-            boxSize="24px"
-            marginLeft="auto"
-          />
-        ) }
+        { isActive && <Icon as={ checkIcon } boxSize="24px" marginLeft="auto"/> }
       </Flex>
     </Box>
   );
